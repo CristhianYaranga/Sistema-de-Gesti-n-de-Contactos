@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Lead{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto fade-in">
+    <!-- Botón de regreso -->
+    <div class="mb-6">
+        <a 
+            href="{{ url_for('listar_leads') }}" 
+            class="inline-flex items-center text-primary hover:text-secondary transition duration-300"
+        >
+            <i class="fas fa-arrow-left mr-2"></i>
+            Volver a la lista
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-6 text-white">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-user-edit text-3xl"></i>
+                <div>
+                    <h3 class="text-2xl font-bold">Editar Lead</h3>
+                    <p class="text-yellow-100">ID: {{ lead.id }} - {{ lead.nombre_completo }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Formulario -->
+        <form method="POST" class="p-8 space-y-6">
+            
+            <!-- Nombre Completo -->
+            <div>
+                <label for="nombre_completo" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-user text-primary mr-2"></i>
+                    Nombre Completo *
+                </label>
+                <input 
+                    type="text" 
+                    id="nombre_completo" 
+                    name="nombre_completo" 
+                    value="{{ lead.nombre_completo }}"
+                    required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300"
+                >
+            </div>
+            
+            <!-- Correo (Solo lectura) -->
+            <div>
+                <label for="correo_electronico" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-envelope text-primary mr-2"></i>
+                    Correo Electrónico (No editable)
+                </label>
+                <input 
+                    type="email" 
+                    id="correo_electronico" 
+                    value="{{ lead.correo_electronico }}"
+                    readonly
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                >
+                <p class="text-xs text-gray-500 mt-1">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    El correo electrónico no puede ser modificado
+                </p>
+            </div>
+            
+            <!-- Teléfono -->
+            <div>
+                <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-phone text-primary mr-2"></i>
+                    Teléfono *
+                </label>
+                <input 
+                    type="tel" 
+                    id="telefono" 
+                    name="telefono" 
+                    value="{{ lead.telefono }}"
+                    required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300"
+                >
+            </div>
+            
+            <!-- Interés/Servicio -->
+            <div>
+                <label for="interes_servicio" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-briefcase text-primary mr-2"></i>
+                    Interés / Servicio Solicitado *
+                </label>
+                <select 
+                    id="interes_servicio" 
+                    name="interes_servicio" 
+                    required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300 bg-white"
+                >
+                    <option value="Consultoría Tecnológica" {% if lead.interes_servicio == "Consultoría Tecnológica" %}selected{% endif %}>Consultoría Tecnológica</option>
+                    <option value="Desarrollo de Software" {% if lead.interes_servicio == "Desarrollo de Software" %}selected{% endif %}>Desarrollo de Software</option>
+                    <option value="Cloud Computing (AWS)" {% if lead.interes_servicio == "Cloud Computing (AWS)" %}selected{% endif %}>Cloud Computing (AWS)</option>
+                    <option value="Ciberseguridad" {% if lead.interes_servicio == "Ciberseguridad" %}selected{% endif %}>Ciberseguridad</option>
+                    <option value="Transformación Digital" {% if lead.interes_servicio == "Transformación Digital" %}selected{% endif %}>Transformación Digital</option>
+                    <option value="Análisis de Datos" {% if lead.interes_servicio == "Análisis de Datos" %}selected{% endif %}>Análisis de Datos</option>
+                    <option value="Inteligencia Artificial" {% if lead.interes_servicio == "Inteligencia Artificial" %}selected{% endif %}>Inteligencia Artificial</option>
+                    <option value="Otro" {% if lead.interes_servicio == "Otro" %}selected{% endif %}>Otro</option>
+                </select>
+            </div>
+            
+            <!-- Fecha de Registro (Solo lectura) -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-calendar text-primary mr-2"></i>
+                    Fecha de Registro
+                </label>
+                <input 
+                    type="text" 
+                    value="{{ lead.fecha_registro.strftime('%d/%m/%Y %H:%M:%S') }}"
+                    readonly
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed"
+                >
+            </div>
+            
+            <!-- Botones -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button 
+                    type="submit" 
+                    class="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-4 px-6 rounded-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 flex items-center justify-center space-x-2"
+                >
+                    <i class="fas fa-save"></i>
+                    <span>Guardar Cambios</span>
+                </button>
+                
+                <a 
+                    href="{{ url_for('listar_leads') }}" 
+                    class="flex-1 bg-gray-200 text-gray-700 font-bold py-4 px-6 rounded-lg hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-2 text-center"
+                >
+                    <i class="fas fa-times"></i>
+                    <span>Cancelar</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

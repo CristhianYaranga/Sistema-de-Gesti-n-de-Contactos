@@ -1,0 +1,63 @@
+# ============================================
+# ARCHIVO GITIGNORE
+# Sistema de Gestión de Contactos
+# ============================================
+
+# Entornos virtuales de Python
+venv/
+env/
+ENV/
+.venv/
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Base de datos local
+*.db
+*.sqlite
+*.sqlite3
+instance/
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Claves privadas de AWS
+*.pem
+*.ppk
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Flask
+.webassets-cache
+
+# Archivos temporales
+*.tmp
+*.bak
+temp/
+
+# Node modules (Tailwind CSS)
+node_modules/
+package-lock.json

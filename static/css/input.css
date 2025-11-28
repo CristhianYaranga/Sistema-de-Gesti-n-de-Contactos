@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+/* Configuración del tema personalizado */
+@theme {
+  /* Colores personalizados */
+  --color-primary: #2563eb;
+  --color-secondary: #7c3aed;
+  --color-accent: #059669;
+  --color-dark: #1e293b;
+  --color-light: #f1f5f9;
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Clases de utilidad personalizadas */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.flash-message {
+  animation: slideDown 0.3s ease-out;
+}

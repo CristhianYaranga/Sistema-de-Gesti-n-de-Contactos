@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Registro de Leads{% endblock %}
+
+{% block content %}
+<!-- Hero Section con imagen de fondo -->
+<div class="fade-in mb-12">
+    <div class="bg-gradient-to-r from-primary to-secondary rounded-2xl shadow-2xl overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <!-- Texto principal -->
+            <div class="p-8 md:p-12 text-white">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    Impulsa tu Negocio
+                </h2>
+                <p class="text-xl mb-6 text-blue-100">
+                    Gestiona tus clientes potenciales de manera eficiente y profesional
+                </p>
+                <div class="flex flex-wrap gap-4 text-sm">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-300"></i>
+                        <span>Registro Rápido</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-300"></i>
+                        <span>Seguimiento 24/7</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-check-circle text-green-300"></i>
+                        <span>Datos Seguros</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Imagen representativa -->
+            <div class="hidden md:block p-8">
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
+                    <i class="fas fa-chart-line text-9xl text-white/80 mb-4"></i>
+                    <p class="text-white text-lg">Optimiza tu proceso de ventas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sección de características -->
+<div class="grid md:grid-cols-3 gap-6 mb-12 fade-in">
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition duration-300 border-t-4 border-primary">
+        <div class="text-primary text-4xl mb-4">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <h3 class="text-xl font-bold text-dark mb-2">Registro Sencillo</h3>
+        <p class="text-gray-600">Captura información de clientes potenciales en segundos</p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition duration-300 border-t-4 border-secondary">
+        <div class="text-secondary text-4xl mb-4">
+            <i class="fas fa-database"></i>
+        </div>
+        <h3 class="text-xl font-bold text-dark mb-2">Base de Datos Segura</h3>
+        <p class="text-gray-600">Toda tu información protegida y respaldada en la nube</p>
+    </div>
+    
+    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition duration-300 border-t-4 border-accent">
+        <div class="text-accent text-4xl mb-4">
+            <i class="fas fa-chart-pie"></i>
+        </div>
+        <h3 class="text-xl font-bold text-dark mb-2">Análisis en Tiempo Real</h3>
+        <p class="text-gray-600">Visualiza y gestiona tus contactos eficientemente</p>
+    </div>
+</div>
+
+<!-- Formulario de Registro -->
+<div class="max-w-3xl mx-auto fade-in">
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Header del formulario -->
+        <div class="bg-gradient-to-r from-primary to-secondary p-6 text-white">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-clipboard-list text-3xl"></i>
+                <div>
+                    <h3 class="text-2xl font-bold">Registrar Nuevo Lead</h3>
+                    <p class="text-blue-100">Complete el formulario para añadir un nuevo contacto</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Formulario -->
+        <form method="POST" action="{{ url_for('registro') }}" class="p-8 space-y-6">
+            
+            <!-- Nombre Completo -->
+            <div>
+                <label for="nombre_completo" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-user text-primary mr-2"></i>
+                    Nombre Completo *
+                </label>
+                <input 
+                    type="text" 
+                    id="nombre_completo" 
+                    name="nombre_completo" 
+                    required
+                    placeholder="Ej: Juan Pérez García"
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300"
+                >
+            </div>
+            
+            <!-- Correo Electrónico -->
+            <div>
+                <label for="correo_electronico" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-envelope text-primary mr-2"></i>
+                    Correo Electrónico * (Único)
+                </label>
+                <input 
+                    type="email" 
+                    id="correo_electronico" 
+                    name="correo_electronico" 
+                    required
+                    placeholder="ejemplo@correo.com"
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300"
+                >
+            </div>
+            
+            <!-- Teléfono -->
+            <div>
+                <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-phone text-primary mr-2"></i>
+                    Teléfono *
+                </label>
+                <input 
+                    type="tel" 
+                    id="telefono" 
+                    name="telefono" 
+                    required
+                    placeholder="Ej: +593 99 999 9999"
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300"
+                >
+            </div>
+            
+            <!-- Interés/Servicio -->
+            <div>
+                <label for="interes_servicio" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-briefcase text-primary mr-2"></i>
+                    Interés / Servicio Solicitado *
+                </label>
+                <select 
+                    id="interes_servicio" 
+                    name="interes_servicio" 
+                    required
+                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition duration-300 bg-white"
+                >
+                    <option value="">-- Seleccione una opción --</option>
+                    <option value="Consultoría Tecnológica">Consultoría Tecnológica</option>
+                    <option value="Desarrollo de Software">Desarrollo de Software</option>
+                    <option value="Cloud Computing (AWS)">Cloud Computing (AWS)</option>
+                    <option value="Ciberseguridad">Ciberseguridad</option>
+                    <option value="Transformación Digital">Transformación Digital</option>
+                    <option value="Análisis de Datos">Análisis de Datos</option>
+                    <option value="Inteligencia Artificial">Inteligencia Artificial</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+            
+            <!-- Nota informativa -->
+            <div class="bg-blue-50 border-l-4 border-primary p-4 rounded">
+                <p class="text-sm text-gray-700">
+                    <i class="fas fa-info-circle text-primary mr-2"></i>
+                    <span class="font-semibold">Nota:</span> Todos los campos marcados con (*) son obligatorios. 
+                    La fecha de registro se generará automáticamente.
+                </p>
+            </div>
+            
+            <!-- Botones -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <button 
+                    type="submit" 
+                    class="flex-1 bg-gradient-to-r from-primary to-secondary text-white font-bold py-4 px-6 rounded-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 flex items-center justify-center space-x-2"
+                >
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Registrar Lead</span>
+                </button>
+                
+                <button 
+                    type="reset" 
+                    class="flex-1 bg-gray-200 text-gray-700 font-bold py-4 px-6 rounded-lg hover:bg-gray-300 transition duration-300 flex items-center justify-center space-x-2"
+                >
+                    <i class="fas fa-redo"></i>
+                    <span>Limpiar Formulario</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Call to Action -->
+<div class="mt-12 text-center fade-in">
+    <a 
+        href="{{ url_for('listar_leads') }}" 
+        class="inline-block bg-accent text-white font-bold py-4 px-8 rounded-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300"
+    >
+        <i class="fas fa-list-alt mr-2"></i>
+        Ver Todos los Leads Registrados
+    </a>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Validación del formulario en el lado del cliente
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const email = document.getElementById('correo_electronico').value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!emailRegex.test(email)) {
+            e.preventDefault();
+            alert('Por favor ingrese un correo electrónico válido');
+            return false;
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles del Lead{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto fade-in">
+    <!-- Botón de regreso -->
+    <div class="mb-6">
+        <a 
+            href="{{ url_for('listar_leads') }}" 
+            class="inline-flex items-center text-primary hover:text-secondary transition duration-300"
+        >
+            <i class="fas fa-arrow-left mr-2"></i>
+            Volver a la lista
+        </a>
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-primary to-secondary p-8 text-white">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div class="flex items-start space-x-4 mb-4 md:mb-0">
+                    <div class="bg-white/20 p-4 rounded-full">
+                        <i class="fas fa-user-tie text-4xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2">{{ lead.nombre_completo }}</h2>
+                        <p class="text-blue-100">Lead ID: {{ lead.id }}</p>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <a 
+                        href="{{ url_for('editar_lead', id=lead.id) }}" 
+                        class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 flex items-center space-x-2"
+                    >
+                        <i class="fas fa-edit"></i>
+                        <span>Editar</span>
+                    </a>
+                    
+                    <form method="POST" action="{{ url_for('eliminar_lead', id=lead.id) }}" class="inline" onsubmit="return confirm('¿Está seguro de eliminar este lead? Esta acción no se puede deshacer.');">
+                        <button 
+                            type="submit" 
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 flex items-center space-x-2"
+                        >
+                            <i class="fas fa-trash"></i>
+                            <span>Eliminar</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Información del Lead -->
+        <div class="p-8">
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <!-- Correo Electrónico -->
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-primary">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-envelope text-primary text-2xl mr-3"></i>
+                        <h3 class="text-lg font-bold text-gray-700">Correo Electrónico</h3>
+                    </div>
+                    <p class="text-gray-900 text-lg">{{ lead.correo_electronico }}</p>
+                    <a href="mailto:{{ lead.correo_electronico }}" class="text-primary hover:text-secondary text-sm mt-2 inline-block">
+                        <i class="fas fa-paper-plane mr-1"></i>
+                        Enviar correo
+                    </a>
+                </div>
+                
+                <!-- Teléfono -->
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-accent">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-phone text-accent text-2xl mr-3"></i>
+                        <h3 class="text-lg font-bold text-gray-700">Teléfono</h3>
+                    </div>
+                    <p class="text-gray-900 text-lg">{{ lead.telefono }}</p>
+                    <a href="tel:{{ lead.telefono }}" class="text-accent hover:text-green-700 text-sm mt-2 inline-block">
+                        <i class="fas fa-phone-alt mr-1"></i>
+                        Llamar ahora
+                    </a>
+                </div>
+                
+                <!-- Interés/Servicio -->
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-secondary">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-briefcase text-secondary text-2xl mr-3"></i>
+                        <h3 class="text-lg font-bold text-gray-700">Interés / Servicio</h3>
+                    </div>
+                    <span class="inline-block bg-blue-100 text-blue-800 font-semibold px-4 py-2 rounded-full">
+                        {{ lead.interes_servicio }}
+                    </span>
+                </div>
+                
+                <!-- Fecha de Registro -->
+                <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-yellow-500">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-calendar-alt text-yellow-500 text-2xl mr-3"></i>
+                        <h3 class="text-lg font-bold text-gray-700">Fecha de Registro</h3>
+                    </div>
+                    <p class="text-gray-900 text-lg">{{ lead.fecha_registro.strftime('%d de %B de %Y') }}</p>
+                    <p class="text-gray-600 text-sm mt-1">
+                        <i class="fas fa-clock mr-1"></i>
+                        {{ lead.fecha_registro.strftime('%H:%M:%S') }}
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Timeline simulado -->
+            <div class="mt-8 bg-gray-50 p-6 rounded-xl">
+                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-history text-primary mr-2"></i>
+                    Historial de Actividad
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-green-500 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-check text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">Lead Registrado</p>
+                            <p class="text-sm text-gray-600">{{ lead.fecha_registro.strftime('%d/%m/%Y a las %H:%M') }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-500 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-eye text-white"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">Información Visualizada</p>
+                            <p class="text-sm text-gray-600">Ahora mismo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notas adicionales -->
+            <div class="mt-8 bg-blue-50 border-l-4 border-primary p-6 rounded">
+                <h3 class="text-lg font-bold text-gray-800 mb-2 flex items-center">
+                    <i class="fas fa-lightbulb text-primary mr-2"></i>
+                    Próximos Pasos Recomendados
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>Contactar al lead dentro de las próximas 24 horas</li>
+                    <li>Enviar información sobre {{ lead.interes_servicio }}</li>
+                    <li>Programar una reunión de seguimiento</li>
+                    <li>Actualizar el estado del lead después del contacto inicial</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
